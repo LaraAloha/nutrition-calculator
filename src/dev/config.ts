@@ -10,10 +10,23 @@ export const config: Config = {
         dinner: 1200
     },
     uiText: {
-        titles: {
-            news: 'Breaking news',
-            tweets: 'what they think',
-            btn: 'surf more',
-        }
+        suffix: 'kcal',
+        meals: [
+            {
+                name: 'breakfast',
+                description: '',
+                comments: ''
+            },
+            {
+                name: 'lunch',
+                description: '',
+                comments: ''
+            },
+            {
+                name: 'dinner',
+                description: '',
+                comments: ''
+            },
+        ]
     }
 }
