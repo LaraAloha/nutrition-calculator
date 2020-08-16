@@ -11,15 +11,21 @@ type State = {
   dinner: number
 }
 
+const getDefaults = (fieldName: string): MealData => {
+  return config.defaultValues.meals.find((meal: MealData) => {
+    return meal.name === fieldName
+  }) as MealData
+}
+
 export default class App extends React.Component<{}, State> {
   public state: State = {
-    breakfast: config.defaultValues.breakfast,
-    lunch: config.defaultValues.lunch,
-    dinner: config.defaultValues.dinner,
+    breakfast: getDefaults('breakfast').defaultValue,
+    lunch: getDefaults('lunch').defaultValue,
+    dinner: getDefaults('dinner').defaultValue
   }
 
   public render(): React.ReactElement {
-    const allMeals = config.uiText.meals.map((meal: MealData) => {
+    const allMeals = config.defaultValues.meals.map((meal: MealData) => {
       return meal.name
     })
     return (
@@ -30,23 +36,24 @@ export default class App extends React.Component<{}, State> {
   }
 
   private renderAllMeals = (allMeals: string[]): React.ReactElement[] => {
-    return allMeals.map((mealName: string) => {
-      return this.renderMeal(mealName)
+    return allMeals.map((fieldName: string) => {
+      return this.renderMeal(fieldName)
     })
   }
 
-  private renderMeal = (mealName: string): React.ReactElement => {
+  private renderMeal = (fieldName: string): React.ReactElement => {
     return <Meal
       changeValue={this.changeValue}
       maxLimit={config.limits.meal}
-      nutritionValues={(this.state as Indexable)[mealName]}
-      mealName={mealName}
+      nutritionValues={(this.state as Indexable)[fieldName]}
+      fieldData={getDefaults(fieldName)}
+      suffix={config.uiText.suffix}
     />
-
   }
-  private changeValue = (value: NumberFormatValues, mealName: string): void => {
+  
+  private changeValue = (value: NumberFormatValues, fieldName: string): void => {
     this.setState({
-      [mealName]: value.value,
+      [fieldName]: value.value,
     } as any)
   }
 

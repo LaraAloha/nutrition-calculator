@@ -2,24 +2,20 @@ export type Config = {
     limits: {
         meal: number
     }
-    defaultValues: DefaultValues
-    uiText: Uitext
+    defaultValues: {
+        meals: MealData[]
+    }
+    uiText: UiText
 }
-export type Uitext = {
+export type UiText = {
     suffix: string
-    meals: MealData[]
 }
 
 export type MealData = {
     name: string
     description: string
     comments: string
-}
-
-export type DefaultValues = {
-    breakfast: number
-    lunch: number
-    dinner: number
+    defaultValue: number
 }
 
 export type Indexable = {

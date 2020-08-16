@@ -5,28 +5,28 @@ export const config: Config = {
         meal: 5000,
     },
     defaultValues: {
-        breakfast: 700,
-        lunch: 600,
-        dinner: 1200
-    },
-    uiText: {
-        suffix: 'kcal',
         meals: [
             {
                 name: 'breakfast',
                 description: '',
+                defaultValue: 700,
                 comments: ''
             },
             {
                 name: 'lunch',
                 description: '',
+                defaultValue: 600,
                 comments: ''
             },
             {
                 name: 'dinner',
                 description: '',
+                defaultValue: 1200,
                 comments: ''
             },
-        ]
+        ],
+    },
+    uiText: {
+        suffix: 'kcal',
     }
 }
