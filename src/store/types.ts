@@ -1,5 +1,7 @@
 export type Config = {
-    limits: any
+    limits: {
+        meal: number
+    }
     defaultValues: DefaultValues
     uiText: Uitext
 }
@@ -12,10 +14,9 @@ export type Uitext = {
 }
 
 export type DefaultValues = {
-    googleAccesKey: string
-    sid: string
-    searchRequest: string
-    newsAmount: number
+    breakfast: number
+    lunch: number
+    dinner: number
 }
 
 export type NewsDataset = {

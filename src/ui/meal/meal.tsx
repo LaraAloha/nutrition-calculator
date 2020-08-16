@@ -7,20 +7,26 @@ import './meal.css'
 import { DefaultValues } from '../../store/types'
 
 type Props = {
-    changeValue: (value: NumberFormatValues) => void
+    changeValue: (value: NumberFormatValues, mealName: string) => void
     maxLimit: number
     suffix: string
     nutritionValues: number  // todo NumberFormatValues -> num
+    mealName: string
 }
 
-export class Budget extends React.Component<Props, {}> {
+export default class Meal extends React.Component<Props, {}> {
     public render(): React.ReactElement {
         const {
             changeValue,
             maxLimit,
             suffix,
-            nutritionValues
+            nutritionValues,
+            mealName
         } = this.props
+        const changeMeal =
+            (value: NumberFormatValues) =>
+                changeValue(value, mealName)
+
         return (
             <div className="root">
                 <NumberFormat
@@ -29,11 +35,11 @@ export class Budget extends React.Component<Props, {}> {
                     allowNegative={false}
                     value={formatThousands(nutritionValues) + suffix}
                     isAllowed={allowedLimits(maxLimit)}
-                    onValueChange={changeValue}
+                    onValueChange={changeMeal}
                 />
             </div>
 
         )
     }
-    
+
 }

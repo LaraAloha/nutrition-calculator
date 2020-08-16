@@ -1,13 +1,13 @@
 import { Config } from '../store/types'
 
 export const config: Config = {
-    limits: 'any',
+    limits: {
+        meal: 5000,
+    },
     defaultValues: {
-        googleAccesKey: 'AIzaSyCySVNZDcyzaM-m-iTYEbVraTbP9rNbuuU',
-        sid: 'd95011958ce1199f6',
-        searchRequest: 'cosmetics natural',
-        newsAmount: 3,
-
+        breakfast: 700,
+        lunch: 600,
+        dinner: 1200
     },
     uiText: {
         titles: {
