@@ -1,9 +1,9 @@
 import React from 'react';
-import NumberFormat, { NumberFormatValues } from 'react-number-format'
+import { NumberFormatValues } from 'react-number-format'
 import Meal from '../meal/meal'
 import { config } from '../../dev/config';
 import './app.css';
-import { MealData, MealType, Indexable } from '../../store/types';
+import { MealData, MealType } from '../../store/types';
 
 type State = {
   meals: MealType[]
@@ -36,7 +36,7 @@ export default class App extends React.Component<{}, State> {
   }
 
   public render(): React.ReactElement {
-    const allMeals = config.defaultValues.meals.map((meal: MealData) => {
+    const allMeals = this.state.meals.map((meal: MealType) => {
       return meal.name
     })
     return (
@@ -48,22 +48,26 @@ export default class App extends React.Component<{}, State> {
 
   private getAllMeals = (allMeals: string[]): React.ReactElement[] => {
     return allMeals.map((fieldName: string) => {
-      return this.renderMeal(fieldName)
+      return (
+        <div key={fieldName}>
+          {this.renderMeal(fieldName)}
+        </div>
+      )
     })
   }
 
-  private renderMeal = (fieldName: string): React.ReactElement => {
-    const fieldIndex = this.state.meals.findIndex((meal: MealType) => {
-      return meal.name === fieldName
-    });
-    return <Meal
-      changeValue={this.changeValue}
-      maxLimit={config.limits.meal}
-      currentNutritionData={this.state.meals[fieldIndex]}
-      fieldData={getMealData(fieldName)}
-      suffix={config.uiText.suffix}
-      onRemove={this.onRemove}
-    />
+  private renderMeal = (fieldName: string): React.ReactElement | undefined => {
+    const fieldIndex = this.getIndexByField(fieldName)
+    if (fieldIndex !== undefined) {
+      return <Meal
+        changeValue={this.changeValue}
+        maxLimit={config.limits.meal}
+        currentNutritionData={this.state.meals[fieldIndex]}
+        fieldData={getMealData(fieldName)}
+        suffix={config.uiText.suffix}
+        onRemove={this.onRemove}
+      />
+    }
   }
 
 
@@ -71,26 +75,27 @@ export default class App extends React.Component<{}, State> {
     const newMeals = [
       ...this.state.meals
     ]
-    const fieldIndex = this.state.meals.findIndex((meal: MealType) => {
-      return meal.name === fieldName
-    });
-
-    newMeals[fieldIndex].value = value.floatValue || 0
-console.log(newMeals,   value.floatValue)
-    
-this.setState({
-      meals: newMeals
-    } )
+    const fieldIndex = this.getIndexByField(fieldName)
+    if (fieldIndex) {
+      newMeals[fieldIndex].value = value.floatValue || 0
+      this.setState({
+        meals: newMeals
+      })
+    }
   }
 
   private onRemove = (fieldName: string): void => {
-    // const fieldIndex = (this.state as In)
-
-    // findIndex((field: IndexedTextAndNumberFieldData) => {
-    //   return field.fieldName === fieldName
-    // }) as number
+    const updatedFields = this.state.meals.filter((meal: MealType, index: number) => {
+      return meal.name !== fieldName
+    })
     this.setState({
-      // [fieldName]: value.value,
+      meals: updatedFields
     } as any)
+  }
+
+  private getIndexByField = (fieldName: string): number | undefined => {
+    return this.state.meals.findIndex((meal: MealType) => {
+      return meal.name === fieldName
+    })
   }
 }
