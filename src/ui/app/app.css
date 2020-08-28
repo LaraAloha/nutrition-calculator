@@ -2,5 +2,15 @@
   width: 320px;
   padding: 21px 25px;
   background-color: rgba(207, 207, 207, 0.39);
+
+  border-radius: 8px;
+}
+
+.result {
+  background-color: white;
+  margin-top: 24px;
+  padding: 8px 10px;
+
+
   border-radius: 8px;
 }

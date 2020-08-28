@@ -1,5 +1,6 @@
 import React from 'react';
 import { NumberFormatValues } from 'react-number-format'
+import { NBSP } from '../../store/constants'
 import Meal from '../meal/meal'
 import { config } from '../../dev/config';
 import './app.css';
@@ -44,7 +45,9 @@ export default class App extends React.Component<{}, State> {
     return (
       <div className="root">
         {this.drawAllFields(allFields)}
-        {config.uiText.total + sum}
+        <div className="result">
+          {config.uiText.total + sum + NBSP + config.uiText.suffix}
+        </div>
       </div>
     )
   }
@@ -76,7 +79,7 @@ export default class App extends React.Component<{}, State> {
         maxLimit={config.limits.meal}
         currentNutritionData={this.state.fields[fieldIndex]}
         suffix={config.uiText.suffix}
-        disableField={this.disableField}
+        toggleField={this.toggleField}
       />
     }
   }
@@ -95,7 +98,7 @@ export default class App extends React.Component<{}, State> {
     }
   }
 
-  private disableField = (fieldName: string): void => {
+  private toggleField = (fieldName: string): void => {
     const updatedFields = [
       ...this.state.fields
     ]

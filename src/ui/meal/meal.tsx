@@ -8,7 +8,7 @@ import {  FieldType } from '../../store/types';
 
 type Props = {
     changeValue: (value: NumberFormatValues, fieldName: string) => void
-    disableField: (fieldName: string) => void
+    toggleField: (fieldName: string) => void
     maxLimit: number
     currentNutritionData: FieldType
     suffix: string
@@ -21,13 +21,13 @@ export default class Meal extends React.Component<Props, {}> {
             maxLimit,
             currentNutritionData,
             suffix,
-            disableField
+            toggleField
         } = this.props
         const fieldName = currentNutritionData.name
         const changeMeal = (fieldName: string) => (
             value: NumberFormatValues,
         ) => changeValue(value, fieldName)
-        const remove = () => disableField(fieldName)
+        const remove = () => toggleField(fieldName)
         return (
             <div key={fieldName} className="root_meal">
                 <div className={currentNutritionData.isActive ? "active" : "disabled"}>
@@ -42,7 +42,8 @@ export default class Meal extends React.Component<Props, {}> {
                         suffix={NBSP + suffix}
                     />
                 </div>
-                <button onClick={remove} className="remove"></button>
+                <button onClick={remove} className={currentNutritionData.isActive ? "remove" : "return"}
+                ></button>
 
             </div>
         )
