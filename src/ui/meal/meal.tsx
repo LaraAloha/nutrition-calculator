@@ -4,14 +4,13 @@ import { allowedLimits } from '../../helpers/allowed-limits'
 import { formatThousands } from '../../helpers/format-thousands'
 import { NBSP } from '../../store/constants'
 import './meal.css'
-import { MealData, MealType } from '../../store/types';
+import {  FieldType } from '../../store/types';
 
 type Props = {
     changeValue: (value: NumberFormatValues, fieldName: string) => void
-    onRemove: (fieldName: string) => void
+    disableField: (fieldName: string) => void
     maxLimit: number
-    currentNutritionData: MealType
-    fieldData: MealData
+    currentNutritionData: FieldType
     suffix: string
 }
 
@@ -21,31 +20,31 @@ export default class Meal extends React.Component<Props, {}> {
             changeValue,
             maxLimit,
             currentNutritionData,
-            fieldData,
             suffix,
-            onRemove
+            disableField
         } = this.props
-        const fieldName = fieldData.name
+        const fieldName = currentNutritionData.name
         const changeMeal = (fieldName: string) => (
             value: NumberFormatValues,
         ) => changeValue(value, fieldName)
-
-        const remove = () => onRemove(fieldData.name)
+        const remove = () => disableField(fieldName)
         return (
-            <div key={fieldData.name} className="root_meal">
-                <span className="text">{fieldData.name}</span>
-                <NumberFormat
-                    className="field_meal"
-                    thousandSeparator={NBSP}
-                    allowNegative={false}
-                    value={formatThousands(currentNutritionData.value)}
-                    isAllowed={allowedLimits(maxLimit)}
-                    onValueChange={changeMeal(fieldName)}
-                    suffix={NBSP + suffix}
-                />
+            <div key={fieldName} className="root_meal">
+                <div className={currentNutritionData.isActive ? "active" : "disabled"}>
+                    <span className="text">{fieldName}</span>
+                    <NumberFormat
+                        className="field_meal"
+                        thousandSeparator={NBSP}
+                        allowNegative={false}
+                        value={formatThousands(currentNutritionData.value)}
+                        isAllowed={allowedLimits(maxLimit)}
+                        onValueChange={changeMeal(fieldName)}
+                        suffix={NBSP + suffix}
+                    />
+                </div>
                 <button onClick={remove} className="remove"></button>
-            </div>
 
+            </div>
         )
     }
 

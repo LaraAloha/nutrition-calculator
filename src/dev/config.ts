@@ -9,24 +9,25 @@ export const config: Config = {
             {
                 name: 'breakfast',
                 description: '',
-                defaultValue: 700,
+                defaultValue: 500,
                 comments: ''
             },
             {
                 name: 'lunch',
                 description: '',
-                defaultValue: 600,
+                defaultValue: 500,
                 comments: ''
             },
             {
                 name: 'dinner',
                 description: '',
-                defaultValue: 1200,
+                defaultValue: 1000,
                 comments: ''
             },
         ],
     },
     uiText: {
         suffix: 'kcal',
+        total: 'Total consumption: ',
     }
 }

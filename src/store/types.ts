@@ -9,6 +9,7 @@ export type Config = {
 }
 export type UiText = {
     suffix: string
+    total: string
 }
 
 export type MealData = {
@@ -22,8 +23,9 @@ export type Indexable = {
     [key: string]: any
 }
 
-export type MealType = {
+export type FieldType = {
     name: string
     value: number
-  }
+    isActive: boolean
+}
   
