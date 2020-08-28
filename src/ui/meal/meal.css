@@ -29,11 +29,16 @@
     border-top: unset;
     border-right:unset;
     border-left:unset;
-    border-bottom: 1px solid #6e6e6e;
+    border-bottom: 1px solid #3b3b3b;
     background: transparent;
 }
 .field_meal:hover {
-    color:#6e6e6e;
+    color:#3b3b3b;
+}
+
+.field_meal:focus {
+    color:black;
+    outline: none;
 }
 
 .remove {
@@ -42,7 +47,9 @@
     box-sizing: border-box;
     display: inline-block;
     cursor: pointer;
-
+    border: unset;
+    background-color: transparent;
+    outline: none;
     width: 20px;
     height: 20px;
     margin-left: 15px;

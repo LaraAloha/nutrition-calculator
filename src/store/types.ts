@@ -21,3 +21,9 @@ export type MealData = {
 export type Indexable = {
     [key: string]: any
 }
+
+export type MealType = {
+    name: string
+    value: number
+  }
+  
